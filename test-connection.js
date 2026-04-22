@@ -15,7 +15,7 @@ const sequelize = new Sequelize(
 async function test() {
   try {
     await sequelize.authenticate();
-    console.log('✅ Database connection successful!');
+    console.log('Database connection successful!');
     
     // Coba buat tabel User
     await sequelize.query(`
@@ -29,11 +29,11 @@ async function test() {
         updatedAt DATETIME
       )
     `);
-    console.log('✅ Users table ready');
+    console.log('sers table ready');
     
     process.exit(0);
   } catch (error) {
-    console.error('❌ Connection failed:', error.message);
+    console.error('Connection failed:', error.message);
     process.exit(1);
   }
 }

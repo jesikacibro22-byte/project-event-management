@@ -119,18 +119,18 @@
 const { Category } = require('../models');
 const { Op } = require('sequelize');  // ← Tambahkan ini di atas
 
-// GET ALL CATEGORIES dengan pencarian & filter
+// GET semua categories dengan pencarian & filter
 exports.getAllCategories = async (req, res, next) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const offset = (page - 1) * limit;
-    const search = req.query.search || '';  // ← Ambil parameter search
+    const search = req.query.search || '';  
     
-    // Buat kondisi WHERE untuk pencarian
+    // membuat kondisi WHERE untuk pencarian
     const where = {};
     
-    // Jika ada kata kunci pencarian
+    // Jika ada kata kunci pencarian/menggunakan queri
     if (search) {
       where[Op.or] = [
         { name: { [Op.like]: `%${search}%` } },
@@ -139,7 +139,7 @@ exports.getAllCategories = async (req, res, next) => {
     }
     
     const { count, rows } = await Category.findAndCountAll({
-      where: where,  // ← Tambahkan kondisi where
+      where: where,  
       limit,
       offset,
       order: [['name', 'ASC']]
@@ -154,7 +154,7 @@ exports.getAllCategories = async (req, res, next) => {
         totalPages: Math.ceil(count / limit),
         limit: limit
       },
-      filters: {  // ← Informasi filter yang digunakan
+      filters: {  
         search: search || null
       }
     });
@@ -163,7 +163,7 @@ exports.getAllCategories = async (req, res, next) => {
   }
 };
 
-// GET CATEGORY BY ID (tidak berubah)
+// GET categories berdasarkan Id
 exports.getCategoryById = async (req, res, next) => {
   try {
     const category = await Category.findByPk(req.params.id);
@@ -184,7 +184,7 @@ exports.getCategoryById = async (req, res, next) => {
   }
 };
 
-// CREATE CATEGORY (tidak berubah)
+// POST untuk membuat categories
 exports.createCategory = async (req, res, next) => {
   try {
     const { name, description } = req.body;
@@ -204,7 +204,7 @@ exports.createCategory = async (req, res, next) => {
   }
 };
 
-// UPDATE CATEGORY (tidak berubah)
+// Update categories
 exports.updateCategory = async (req, res, next) => {
   try {
     const category = await Category.findByPk(req.params.id);
@@ -233,7 +233,7 @@ exports.updateCategory = async (req, res, next) => {
   }
 };
 
-// DELETE CATEGORY (tidak berubah)
+// DELETE categories
 exports.deleteCategory = async (req, res, next) => {
   try {
     const category = await Category.findByPk(req.params.id);

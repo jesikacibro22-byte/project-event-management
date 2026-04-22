@@ -39,10 +39,10 @@ app.use('/api/events', eventRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/reviews', reviewRoutes);
 
-// Error handler (must be last)
+// Error handler 
 app.use(errorHandler);
 
-// Sync database and start server
+
 const PORT = process.env.PORT || 3000;
 
 sequelize.sync({ alter: true })

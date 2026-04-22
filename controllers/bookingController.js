@@ -218,7 +218,7 @@ exports.deleteBooking = async (req, res, next) => {
       });
     }
     
-    // Cek permission: user sendiri atau admin
+    // Cek permission: ini bisa user sendiri atau admin
     if (req.user.role !== 'admin' && req.user.id !== booking.userId) {
       await transaction.rollback();
       return res.status(403).json({

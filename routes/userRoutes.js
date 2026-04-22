@@ -28,32 +28,17 @@ const {
 
 const router = express.Router();
 
-/**
- * ===============================
- * PUBLIC ROUTES (tanpa token)
- * ===============================
- */
-
-// Bisa diakses langsung dari browser (untuk demo)
 router.get('/public', getAllUsers);
 
-
-/**
- * ===============================
- * PRIVATE ROUTES (pakai token)
- * ===============================
- */
-
-// Ambil semua user (khusus admin)
 router.get('/', verifyToken, checkRole(['admin']), getAllUsers);
 
-// Ambil user berdasarkan ID (harus login)
+// Ambil user berdasarkan ID (harus login terlebih dahulu)
 router.get('/:id', verifyToken, getUserById);
 
-// Update user (user sendiri / admin)
+// Update user (ini bisa dari akun user / admin)
 router.put('/:id', verifyToken, updateUser);
 
-// Hapus user (khusus admin)
+// Hapus user (khusus admin saja yang bisa menghapus users nya)
 router.delete('/:id', verifyToken, checkRole(['admin']), deleteUser);
 
 module.exports = router;

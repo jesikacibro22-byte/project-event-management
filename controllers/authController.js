@@ -6,7 +6,7 @@ exports.register = async (req, res, next) => {
   try {
     const { name, email, password, role } = req.body;
     
-    // Cek email sudah terdaftar
+    // ini kode untuk Cek email sudah terdaftar
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
       return res.status(400).json({
